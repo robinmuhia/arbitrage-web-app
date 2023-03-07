@@ -7,6 +7,13 @@ from ...database import get_db
 
 router = APIRouter(tags=['Authentication'])
 
+@router.get("/register")
+async def get_register():
+    return {"message":"Registration page"}
+
+@router.get("/")
+async def login():
+    return {"message":"Login page"}
 
 @router.post("/auth/register", status_code=status.HTTP_201_CREATED,response_model=schemas.UserOut)
 def create_user(user:schemas.UserCreate,db:Session = Depends(get_db)):
@@ -22,7 +29,7 @@ def create_user(user:schemas.UserCreate,db:Session = Depends(get_db)):
     db.add(new_user)
     db.commit()
     db.refresh(new_user)
-    return new_user
+    return {'message':"User successfully created"}
 
 
 @router.post('/auth/login',status_code=status.HTTP_200_OK,response_model=schemas.Token)

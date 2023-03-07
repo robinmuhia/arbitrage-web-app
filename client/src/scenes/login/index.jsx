@@ -9,10 +9,15 @@ import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import * as Yup from 'yup'
 import { yupResolver } from "@hookform/resolvers/yup"
-
+import { useDispatch } from 'react-redux'
+import { setLogin } from 'state'
+import { useGetLoginQuery } from 'state/api'
 
 
 const Login = () => { 
+    const { data,isLoading } = useGetLoginQuery()
+    console.log(data,isLoading)
+    const dispatch = useDispatch()
     const theme = useTheme()
     const navigate = useNavigate()
     const validationSchema = Yup.object().shape({
@@ -26,14 +31,18 @@ const Login = () => {
         formData.append('password',data['password'])
         axios({
             method: "post",
-            url: 'http://localhost:8000/auth/login',
+            url: `${process.env.REACT_APP_BASE_URL}/auth/login`,
             data: formData,
             headers: { "Content-Type": "multipart/form-data"}
         })
         .then((res) =>{
             if(res.status === 200){
-                localStorage.setItem("user",JSON.stringify(res.data))
-                navigate('/dashboard')
+                console.log(res)
+                if (res.data.user.paid){
+                    localStorage.setItem("user",JSON.stringify(res.data))
+                    dispatch(setLogin({user: res.data.user,token: `${res.data.token_type} ${res.data.access_token}`}))
+                    navigate('/dashboard')
+                }
             }        
 
         })

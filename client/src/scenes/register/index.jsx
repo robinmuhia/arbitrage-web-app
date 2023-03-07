@@ -9,9 +9,12 @@ import { useNavigate } from 'react-router-dom'
 import { useForm,Controller } from 'react-hook-form'
 import * as Yup from 'yup'
 import { yupResolver } from "@hookform/resolvers/yup"
+import { useGetRegisterQuery } from 'state/api'
 
 
 const Register = () => {
+    const { data,isLoading } = useGetRegisterQuery()
+    console.log(data,isLoading)
     const navigate = useNavigate()
     const validationSchema = Yup.object().shape({
         name: Yup.string().required('A name which will be your username is required'),
@@ -23,7 +26,7 @@ const Register = () => {
     })
     const { register,control,handleSubmit,formState:{ errors } } = useForm({resolver:yupResolver(validationSchema)})    
     const onSubmit = (data) => {
-        const url = `http://localhost:8000/auth/register`
+        const url = `${process.env.REACT_APP_BASE_URL}/auth/register`
         axios.post(url,{
             name: data['name'],
             email: data['email'],
@@ -34,7 +37,7 @@ const Register = () => {
         .then((res) =>{
             if(res.status === 201){
                 alert('User successfully created')
-                navigate('/login')
+                navigate('/')
             }            
         })
         .catch((err)=>{
@@ -179,7 +182,7 @@ const Register = () => {
             </Button>
             <Grid container justifyContent="flex-end">
                 <Grid item>
-                <Link href="/login" variant="body2">
+                <Link href="/" variant="body2">
                     Already have an account? Sign in
                 </Link>
                 </Grid>

@@ -1,7 +1,17 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import authHeader from "helper_functions/auth";
 
 export const api = createApi({
-  baseQuery: fetchBaseQuery({ baseUrl: process.env.REACT_APP_BASE_URL }),
+  baseQuery: fetchBaseQuery({ 
+    baseUrl: process.env.REACT_APP_BASE_URL, 
+    prepareHeaders: (headers) => {
+      const token = authHeader()
+      if(token){
+        headers.set('authorization', token)
+      }
+      return headers
+    }},
+    ),
   reducerPath: "adminApi",
   tagTypes: [
     "User",
@@ -13,8 +23,18 @@ export const api = createApi({
     "Admins",
     "Performance",
     "Dashboard",
+    "Register",
+    "Login"
   ],
   endpoints: (build) => ({
+    getRegister: build.query({
+      query: () => '/register',
+      providesTags: ["Register"],
+    }),
+    getLogin: build.query({
+      query: () => '/',
+      providesTags: ["Login"],
+    }),
     getUser: build.query({
       query: (id) => `general/user/${id}`,
       providesTags: ["User"],
@@ -68,4 +88,6 @@ export const {
   useGetAdminsQuery,
   useGetUserPerformanceQuery,
   useGetDashboardQuery,
+  useGetLoginQuery,
+  useGetRegisterQuery
 } = api;

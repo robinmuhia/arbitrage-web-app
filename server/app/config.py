@@ -14,6 +14,8 @@ class Settings(BaseSettings):
     EMAIL_USERNAME: str
     EMAIL_PASSWORD: str
     EMAIL_FROM: EmailStr
+    domain: str
+    domain2: str
 
     
     class Config:
