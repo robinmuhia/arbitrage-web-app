@@ -6,7 +6,7 @@ import { useTheme } from '@mui/material'
 import Copyright from 'components/Copyright'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
-import { useForm } from 'react-hook-form'
+import { useForm,Controller } from 'react-hook-form'
 import * as Yup from 'yup'
 import { yupResolver } from "@hookform/resolvers/yup"
 import { useDispatch } from 'react-redux'
@@ -15,16 +15,16 @@ import { useGetLoginQuery } from 'state/api'
 
 
 const Login = () => { 
-    const { data,isLoading } = useGetLoginQuery()
-    console.log(data,isLoading)
+    useGetLoginQuery()
     const dispatch = useDispatch()
     const theme = useTheme()
     const navigate = useNavigate()
     const validationSchema = Yup.object().shape({
         email: Yup.string().required("Email is required").email('Email is invalid'),
         password: Yup.string().required('Password is required'),
+        rememberMe:Yup.bool().oneOf([true,false]),
     })   
-    const { register,handleSubmit,formState:{ errors } } = useForm({resolver:yupResolver(validationSchema)})
+    const { register,handleSubmit,control,formState:{ errors } } = useForm({resolver:yupResolver(validationSchema)})
     const onSubmit = (data) => {
         const formData = new FormData()
         formData.append('username',data['email'])
@@ -39,7 +39,9 @@ const Login = () => {
             if(res.status === 200){
                 console.log(res)
                 if (res.data.user.paid){
-                    localStorage.setItem("user",JSON.stringify(res.data))
+                    if (data['rememberMe'] === true){
+                        localStorage.setItem("user",JSON.stringify(res.data))
+                    }
                     dispatch(setLogin({user: res.data.user,token: `${res.data.token_type} ${res.data.access_token}`}))
                     navigate('/dashboard')
                 }
@@ -119,9 +121,27 @@ const Login = () => {
                     {errors.password?.message}
                 </Typography>          
                 <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
+                control={
+                    <Controller
+                    control={control}
+                    name="rememberMe"
+                    defaultValue="false"
+                    inputRef={register()}
+                    render={({ field: { onChange } }) => (
+                        <Checkbox
+                        color="primary"
+                        onChange={e => onChange(e.target.checked)}
+                        />
+                    )}
+                    />
+                }
+                label={
+                    <Typography color={theme.palette.secondary[200]}>
+                    Remember me
+                    </Typography>
+                }
                 />
+                <br />
                 <Button
                 type="submit"
                 fullWidth
