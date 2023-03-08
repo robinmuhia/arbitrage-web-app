@@ -37,7 +37,6 @@ const Login = () => {
         })
         .then((res) =>{
             if(res.status === 200){
-                console.log(res)
                 if (res.data.user.paid){
                     if (data['rememberMe'] === true){
                         localStorage.setItem("user",JSON.stringify(res.data))
