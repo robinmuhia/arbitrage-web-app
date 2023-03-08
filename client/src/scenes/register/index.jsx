@@ -10,11 +10,12 @@ import { useForm,Controller } from 'react-hook-form'
 import * as Yup from 'yup'
 import { yupResolver } from "@hookform/resolvers/yup"
 import { useGetRegisterQuery } from 'state/api'
+import { useTheme } from '@mui/material'
 
 
 const Register = () => {
-    const { data,isLoading } = useGetRegisterQuery()
-    console.log(data,isLoading)
+    useGetRegisterQuery()
+    const theme = useTheme()
     const navigate = useNavigate()
     const validationSchema = Yup.object().shape({
         name: Yup.string().required('A name which will be your username is required'),
@@ -182,7 +183,7 @@ const Register = () => {
             </Button>
             <Grid container justifyContent="flex-end">
                 <Grid item>
-                <Link href="/" variant="body2">
+                <Link href="/" variant="body2" color={theme.palette.secondary[200]}>
                     Already have an account? Sign in
                 </Link>
                 </Grid>

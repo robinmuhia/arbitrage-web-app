@@ -1,10 +1,12 @@
 import React from 'react'
 import { Typography,Link } from '@mui/material'
+import { useTheme } from '@mui/material'
 
 const Copyright = (props) => {
-  return <Typography variant="body2" color="text.secondary" align="center" {...props}>
+  const theme = useTheme()
+  return <Typography variant="body2" color={theme.palette.secondary[200]} align="center" {...props}>
   {'Copyright © '}
-  <Link color="inherit" href="http://127.0.0.1:8000">
+  <Link color="inherit" href="#">
     KULA BETS
   </Link>{' '}
   {new Date().getFullYear()}
