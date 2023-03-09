@@ -153,7 +153,7 @@ const Register = () => {
                     inputRef={register()}
                     render={({ field: { onChange } }) => (
                         <Checkbox
-                        color="primary"
+                        color="secondary"
                         onChange={e => onChange(e.target.checked)}
                         />
                     )}

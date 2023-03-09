@@ -37,31 +37,31 @@ const navItems = [
     icon: <HomeOutlined />,
   },
   {
-    text: "Client Facing",
+    text: "Arbitrage Bets Panel",
     icon: null,
   },
   {
-    text: "Products",
+    text: "Current Bets",
     icon: <ShoppingCartOutlined />,
   },
   {
-    text: "Customers",
+    text: "Past Bets",
     icon: <Groups2Outlined />,
   },
   {
-    text: "Transactions",
+    text: "Past Bets",
     icon: <ReceiptLongOutlined />,
   },
   {
-    text: "Geography",
+    text: "Regions",
     icon: <PublicOutlined />,
   },
   {
-    text: "Sales",
+    text: "Profit Center",
     icon: null,
   },
   {
-    text: "Overview",
+    text: "Bet Overview",
     icon: <PointOfSaleOutlined />,
   },
   {
@@ -133,7 +133,7 @@ const Sidebar = ({
               <FlexBetween color={theme.palette.secondary.main}>
                 <Box display="flex" alignItems="center" gap="0.5rem">
                   <Typography variant="h4" fontWeight="bold">
-                    ECOMVISION
+                    KULA-BET
                   </Typography>
                 </Box>
                 {!isNonMobile && (

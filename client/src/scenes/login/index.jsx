@@ -54,7 +54,6 @@ const Login = () => {
             else{
                 alert("Please try again later!!")
             }
-            console.log(err)
         })
     };
     return (
@@ -65,7 +64,7 @@ const Login = () => {
             sm={4}
             md={7}
             sx={{
-            backgroundImage: 'url(https://images.pexels.com/photos/6802049/pexels-photo-6802049.jpeg?auto=compress&cs=tinysrgb&w=600)',
+            backgroundImage: 'url(https://images.pexels.com/photos/259100/pexels-photo-259100.jpeg?&cs=tinysrgb&w=600)',
             backgroundRepeat: 'no-repeat',
             backgroundColor: theme.palette.primary[300],
             backgroundSize: 'cover',
@@ -128,7 +127,7 @@ const Login = () => {
                     inputRef={register()}
                     render={({ field: { onChange } }) => (
                         <Checkbox
-                        color="primary"
+                        color='secondary'
                         onChange={e => onChange(e.target.checked)}
                         />
                     )}
