@@ -5,7 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from .routes.authentication import auth
 from typing import List
 from .config import settings
-from .routes.user.general import layout
+from .routes.general import layout_dashboard
 
 models.Base.metadata.create_all(bind=engine)
 
@@ -25,7 +25,7 @@ app.add_middleware(
 
 
 app.include_router(auth.router)
-app.include_router(layout.router)
+app.include_router(layout_dashboard.router)
 
 print('Successful connection')
 

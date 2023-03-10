@@ -29,7 +29,7 @@ def create_user(user:schemas.UserCreate,db:Session = Depends(get_db)):
     db.add(new_user)
     db.commit()
     db.refresh(new_user)
-    return {'message':"User successfully created"}
+    return new_user
 
 
 @router.post('/auth/login',status_code=status.HTTP_200_OK,response_model=schemas.Token)

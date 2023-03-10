@@ -47,19 +47,3 @@ class Past_bets(Base):
     owner = relationship("User")
     
 
-class Weekly_bets(Base):
-    __tablename__ = "Weekly profit"
-    
-    id = Column(Integer,primary_key= True,nullable=False)
-    owner_id = Column(Integer,ForeignKey("users.id",ondelete="CASCADE"),nullable = False)
-    profit = Column(Integer,nullable = False)
-    week= Column(Integer,nullable=False)
-    
-
-class Monthly_bets(Base):
-    __tablename__ = "Monthly profit"
-    
-    id = Column(Integer,primary_key= True,nullable=False)
-    owner_id = Column(Integer,ForeignKey("users.id",ondelete="CASCADE"),nullable = False)
-    profit = Column(Integer,nullable = False)
-    month = Column(String,nullable=False)
