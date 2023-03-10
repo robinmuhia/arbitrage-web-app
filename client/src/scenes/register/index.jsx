@@ -28,8 +28,10 @@ const Register = () => {
     const { register,control,handleSubmit,formState:{ errors } } = useForm({resolver:yupResolver(validationSchema)})    
     const onSubmit = (data) => {
         const url = `${process.env.REACT_APP_BASE_URL}/auth/register`
+        const name = data['name']
+        const capitalized = name.charAt(0).toUpperCase() + name.slice(1)
         axios.post(url,{
-            name: data['name'],
+            name: capitalized,
             email: data['email'],
             password: data['password'],
             country:data['country'],

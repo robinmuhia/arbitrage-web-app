@@ -46,11 +46,11 @@ const navItems = [
   },
   {
     text: "Past Bets",
-    icon: <Groups2Outlined />,
+    icon: <ReceiptLongOutlined />,
   },
   {
-    text: "Past Bets",
-    icon: <ReceiptLongOutlined />,
+    text: "Community and FAQ's",
+    icon: <Groups2Outlined />,
   },
   {
     text: "Regions",

@@ -90,10 +90,10 @@ const Dashboard = () => {
       >
         {/* ROW 1 */}
         <StatBox
-          title="Total Customers"
-          value={data && data.totalCustomers}
-          increase="+14%"
-          description="Since last month"
+          title="Total Profit"
+          value={data && data.total_profit}
+          increase={data.total_profit_increase}
+          description="Since you joined our platform"
           icon={
             <Email
               sx={{ color: theme.palette.secondary[300], fontSize: "26px" }}
@@ -101,10 +101,10 @@ const Dashboard = () => {
           }
         />
         <StatBox
-          title="Sales Today"
-          value={data && data.todayStats.totalSales}
-          increase="+21%"
-          description="Since last month"
+          title="Profit today"
+          value={data && data.today_profit}
+          increase={data.today_profit_increase}
+          description="Since yesterday"
           icon={
             <PointOfSale
               sx={{ color: theme.palette.secondary[300], fontSize: "26px" }}
@@ -121,10 +121,10 @@ const Dashboard = () => {
           <OverviewChart view="sales" isDashboard={true} />
         </Box>
         <StatBox
-          title="Monthly Sales"
-          value={data && data.thisMonthStats.totalSales}
-          increase="+5%"
-          description="Since last month"
+          title="Weekly Profit"
+          value={data && data.monthly_profit}
+          increase={data.monthly_profit_increase}
+          description="Since last week"
           icon={
             <PersonAdd
               sx={{ color: theme.palette.secondary[300], fontSize: "26px" }}
@@ -132,9 +132,9 @@ const Dashboard = () => {
           }
         />
         <StatBox
-          title="Yearly Sales"
-          value={data && data.yearlySalesTotal}
-          increase="+43%"
+          title="Month Profit"
+          value={data && data.yearly_profit}
+          increase={data.yearly_profit_increase}
           description="Since last month"
           icon={
             <Traffic
@@ -176,7 +176,7 @@ const Dashboard = () => {
           <DataGrid
             loading={isLoading || !data}
             getRowId={(row) => row._id}
-            rows={(data && data.transactions) || []}
+            rows={(data && data.past_bets) || []}
             columns={columns}
           />
         </Box>
@@ -188,7 +188,7 @@ const Dashboard = () => {
           borderRadius="0.55rem"
         >
           <Typography variant="h6" sx={{ color: theme.palette.secondary[100] }}>
-            Sales By Category
+            Bets By Category
           </Typography>
           <BreakdownChart isDashboard={true} />
           <Typography
@@ -196,8 +196,7 @@ const Dashboard = () => {
             fontSize="0.8rem"
             sx={{ color: theme.palette.secondary[200] }}
           >
-            Breakdown of real states and information via category for revenue
-            made for this year and total sales.
+            Breakdown of current arbitrage bets by region and profit.
           </Typography>
         </Box>
       </Box>
