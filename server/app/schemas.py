@@ -44,13 +44,23 @@ class TokenData(BaseModel):
     id : Optional[str] = None
 
 
-class CurrentBets(BaseModel):
+class Current_Three_way_Bets(BaseModel):
     title: str
     betsite_win: str
     betsite_draw: str
     betsite_loss: str
     win: float
     draw: float
+    loss: float
+    id: int
+    created_at: datetime
+    
+    
+class Current_Two_way_Bets(BaseModel):
+    title: str
+    betsite_win: str
+    betsite_loss: str
+    win: float
     loss: float
     id: int
     created_at: datetime
@@ -64,16 +74,5 @@ class PastBets(BaseModel):
     created_at: datetime
     
 
-class WeeklyBets(BaseModel):
-    id: int
-    owner_id: int
-    profit: float
-    week: str
-        
 
-class MonthlyBets(BaseModel):
-    id: int
-    owner_id: int
-    profit: float
-    week: str
 

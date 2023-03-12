@@ -92,7 +92,7 @@ const Dashboard = () => {
         <StatBox
           title="Total Profit"
           value={data && data.total_profit}
-          increase={data.total_profit_increase}
+          increase={data.total_profit_increase|| 0}
           description="Since you joined our platform"
           icon={
             <Email
@@ -103,7 +103,7 @@ const Dashboard = () => {
         <StatBox
           title="Profit today"
           value={data && data.today_profit}
-          increase={data.today_profit_increase}
+          increase={data.today_profit_increase || 0}
           description="Since yesterday"
           icon={
             <PointOfSale
@@ -122,8 +122,8 @@ const Dashboard = () => {
         </Box>
         <StatBox
           title="Weekly Profit"
-          value={data && data.monthly_profit}
-          increase={data.monthly_profit_increase}
+          value={data && data.weekly_profit}
+          increase={data.weekly_profit_increase || 0}
           description="Since last week"
           icon={
             <PersonAdd
@@ -133,8 +133,8 @@ const Dashboard = () => {
         />
         <StatBox
           title="Month Profit"
-          value={data && data.yearly_profit}
-          increase={data.yearly_profit_increase}
+          value={data && data.monthly_profit}
+          increase={data.monthly_profit_increase || 0}
           description="Since last month"
           icon={
             <Traffic

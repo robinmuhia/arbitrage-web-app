@@ -15,16 +15,14 @@ def get_user_layout(id:int,db:Session = Depends(get_db),current_user:int = Depen
                     raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
                                 detail=f'Not authorized to perform requested action')        
     else:
-        authenticated_user = db.query(models.User).filter(models.User.id == id).first()
-        
+        authenticated_user = db.query(models.User).filter(models.User.id == id).first()        
         
     return authenticated_user
 
 @router.get("/general/dashboard", status_code=status.HTTP_200_OK)
 def get_user_layout(id:int,db:Session = Depends(get_db),current_user:int = Depends(oauth2.get_current_user)):
-    authenticated_user = db.query(models.User).filter(current_user.id == id).first()
-    if authenticated_user == None:
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
-                            detail=f'Not authorized to perform requested action')
+    if current_user.id != id:
+                    raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
+                                detail=f'Not authorized to perform requested action')
         
     return Response(status_code=status.HTTP_200_OK)

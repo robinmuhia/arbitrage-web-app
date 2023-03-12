@@ -20,8 +20,8 @@ class User(Base):
     acceptTerms=Column(Boolean,nullable=False,server_default= 'True')
 
     
-class Current_Bets(Base):
-    __tablename__ = 'Current bets'
+class Current_Three_way_Bets(Base):
+    __tablename__ = 'Current Three-way bets'
 
     id = Column(Integer,primary_key = True, nullable = False)
     title = Column(String,nullable = False)
@@ -33,6 +33,18 @@ class Current_Bets(Base):
     loss = Column(Integer,nullable = False)
     created_at = Column(TIMESTAMP(timezone=True),nullable=False,server_default = text('now()'))
     
+
+class Current_Two_way_Bets(Base):
+    __tablename__ = 'Current Two-way bets'
+
+    id = Column(Integer,primary_key = True, nullable = False)
+    title = Column(String,nullable = False)
+    betsite_win = Column(String,nullable = False)
+    betsite_loss = Column(String,nullable = False)
+    win = Column(Integer,nullable = False)
+    loss = Column(Integer,nullable = False)
+    created_at = Column(TIMESTAMP(timezone=True),nullable=False,server_default = text('now()'))
+
 
 
 class Past_bets(Base):
