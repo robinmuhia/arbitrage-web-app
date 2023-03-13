@@ -3,10 +3,7 @@ import FlexBetween from "components/FlexBetween";
 import Header from "components/Header";
 import {
   DownloadOutlined,
-  Email,
-  PointOfSale,
-  PersonAdd,
-  Traffic,
+  Euro,
 } from "@mui/icons-material";
 import {
   Box,
@@ -20,38 +17,40 @@ import BreakdownChart from "components/BreakdownChart";
 import OverviewChart from "components/OverviewChart";
 import { useGetDashboardQuery } from "state/api";
 import StatBox from "components/StatBox";
+import { useSelector } from "react-redux";
 
 const Dashboard = () => {
   const theme = useTheme();
   const isNonMediumScreens = useMediaQuery("(min-width: 1200px)");
-  const { data, isLoading } = useGetDashboardQuery();
+  const userId = useSelector((state) => state.global.user.id);
+  const { data, isLoading } = useGetDashboardQuery(userId);
 
   const columns = [
     {
       field: "_id",
-      headerName: "ID",
+      headerName: "Game id",
       flex: 1,
     },
     {
       field: "userId",
-      headerName: "User ID",
+      headerName: "Match",
       flex: 1,
     },
     {
       field: "createdAt",
-      headerName: "CreatedAt",
+      headerName: "Generated at",
       flex: 1,
     },
     {
-      field: "products",
-      headerName: "# of Products",
+      field: "region",
+      headerName: "Region",
       flex: 0.5,
       sortable: false,
       renderCell: (params) => params.value.length,
     },
     {
-      field: "cost",
-      headerName: "Cost",
+      field: "profit",
+      headerName: "Possible profit",
       flex: 1,
       renderCell: (params) => `$${Number(params.value).toFixed(2)}`,
     },
@@ -88,25 +87,12 @@ const Dashboard = () => {
           "& > div": { gridColumn: isNonMediumScreens ? undefined : "span 12" },
         }}
       >
-        {/* ROW 1 */}
         <StatBox
-          title="Total Profit"
+          title="Your Profit"
           value={data && data.total_profit}
-          increase={data.total_profit_increase|| 0}
-          description="Since you joined our platform"
+          description="Since you joined"
           icon={
-            <Email
-              sx={{ color: theme.palette.secondary[300], fontSize: "26px" }}
-            />
-          }
-        />
-        <StatBox
-          title="Profit today"
-          value={data && data.today_profit}
-          increase={data.today_profit_increase || 0}
-          description="Since yesterday"
-          icon={
-            <PointOfSale
+            <Euro
               sx={{ color: theme.palette.secondary[300], fontSize: "26px" }}
             />
           }
@@ -120,29 +106,6 @@ const Dashboard = () => {
         >
           <OverviewChart view="sales" isDashboard={true} />
         </Box>
-        <StatBox
-          title="Weekly Profit"
-          value={data && data.weekly_profit}
-          increase={data.weekly_profit_increase || 0}
-          description="Since last week"
-          icon={
-            <PersonAdd
-              sx={{ color: theme.palette.secondary[300], fontSize: "26px" }}
-            />
-          }
-        />
-        <StatBox
-          title="Month Profit"
-          value={data && data.monthly_profit}
-          increase={data.monthly_profit_increase || 0}
-          description="Since last month"
-          icon={
-            <Traffic
-              sx={{ color: theme.palette.secondary[300], fontSize: "26px" }}
-            />
-          }
-        />
-
         {/* ROW 2 */}
         <Box
           gridColumn="span 8"
@@ -176,7 +139,7 @@ const Dashboard = () => {
           <DataGrid
             loading={isLoading || !data}
             getRowId={(row) => row._id}
-            rows={(data && data.past_bets) || []}
+            rows={(data && data.arbitrage_bets) || []}
             columns={columns}
           />
         </Box>
@@ -196,7 +159,7 @@ const Dashboard = () => {
             fontSize="0.8rem"
             sx={{ color: theme.palette.secondary[200] }}
           >
-            Breakdown of current arbitrage bets by region and profit.
+            Breakdown of arbitrage opportunities 
           </Typography>
         </Box>
       </Box>

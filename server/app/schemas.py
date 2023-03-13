@@ -67,12 +67,14 @@ class Current_Two_way_Bets(BaseModel):
     
 
 class PastBets(BaseModel):
-    id: int
     owner_id: int
     profit: float
-    country: str
     created_at: datetime
+
     
+class Dashboard(BaseModel):
+    total_profit: float
+
 
 
 

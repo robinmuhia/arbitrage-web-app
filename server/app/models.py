@@ -50,10 +50,8 @@ class Current_Two_way_Bets(Base):
 class Past_bets(Base):
     __tablename__ = "Past bets"
 
-    id = Column(Integer,primary_key= True,nullable=False)
-    owner_id = Column(Integer,ForeignKey("users.id",ondelete="CASCADE"),nullable = False)
+    owner_id = Column(Integer,ForeignKey("users.id",ondelete="CASCADE"),primary_key = True,nullable = False)
     profit = Column(Integer,nullable = False)
-    country = Column(String,nullable = False)
     created_at = Column(TIMESTAMP(timezone=True),nullable=False,server_default = text('now()'))
         
     owner = relationship("User")

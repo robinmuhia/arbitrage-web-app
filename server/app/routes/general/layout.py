@@ -19,10 +19,3 @@ def get_user_layout(id:int,db:Session = Depends(get_db),current_user:int = Depen
         
     return authenticated_user
 
-@router.get("/general/dashboard", status_code=status.HTTP_200_OK)
-def get_user_layout(id:int,db:Session = Depends(get_db),current_user:int = Depends(oauth2.get_current_user)):
-    if current_user.id != id:
-                    raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
-                                detail=f'Not authorized to perform requested action')
-        
-    return Response(status_code=status.HTTP_200_OK)
